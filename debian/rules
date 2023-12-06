@@ -1,4 +1,15 @@
 #!/usr/bin/make -f
 
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export DH_GOLANG_EXCLUDES := \
+    github.com/samuel/go-zookeeper/examples \
+    github.com/samuel/go-zookeeper/tracer
+
 %:
-	dh $@
+	dh $@ --buildsystem=golang --with=golang
+
+# All the tests require the zookeeper java files, and don't even seem to work.
+override_dh_auto_test:
+
